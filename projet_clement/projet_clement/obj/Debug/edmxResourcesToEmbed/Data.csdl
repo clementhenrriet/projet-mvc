@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MvcEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="articles" EntityType="MvcModel.articles" />
+    <EntitySet Name="Users" EntityType="MvcModel.Users" />
+    <AssociationSet Name="userId" Association="MvcModel.userId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="articles" EntitySet="articles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="articles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="titre" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="contenu" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="MvcModel.userId" FromRole="articles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="Nom" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Prenom" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Naissance" Type="DateTime" />
+    <Property Name="Numero" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Departement" Type="Decimal" />
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="articles" Relationship="MvcModel.userId" FromRole="Users" ToRole="articles" />
+  </EntityType>
+  <Association Name="userId">
+    <End Type="MvcModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="MvcModel.articles" Role="articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="articles">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

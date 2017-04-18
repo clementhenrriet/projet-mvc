@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="articles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="titre" Type="varchar" MaxLength="128" />
+    <Property Name="contenu" Type="longtext" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="Nom" Type="varchar" MaxLength="128" />
+    <Property Name="Prenom" Type="varchar" MaxLength="256" />
+    <Property Name="Naissance" Type="datetime" Precision="0" />
+    <Property Name="Numero" Type="varchar" MaxLength="256" />
+    <Property Name="Departement" Type="decimal" Precision="10" Scale="0" />
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="userId">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="articles" Type="Self.articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="articles">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcModelStoreContainer">
+    <EntitySet Name="articles" EntityType="Self.articles" Schema="stage_clement" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="stage_clement" store:Type="Tables" />
+    <AssociationSet Name="userId" Association="Self.userId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="articles" EntitySet="articles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

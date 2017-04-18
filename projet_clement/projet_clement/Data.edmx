@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MvcModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="articles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="titre" Type="varchar" MaxLength="128" />
+          <Property Name="contenu" Type="longtext" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="Nom" Type="varchar" MaxLength="128" />
+          <Property Name="Prenom" Type="varchar" MaxLength="256" />
+          <Property Name="Naissance" Type="datetime" Precision="0" />
+          <Property Name="Numero" Type="varchar" MaxLength="256" />
+          <Property Name="Departement" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="userId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="articles" Type="Self.articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="articles">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MvcModelStoreContainer">
+          <EntitySet Name="articles" EntityType="Self.articles" Schema="stage_clement" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="stage_clement" store:Type="Tables" />
+          <AssociationSet Name="userId" Association="Self.userId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="articles" EntitySet="articles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MvcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MvcEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="articles" EntityType="MvcModel.articles" />
+          <EntitySet Name="Users" EntityType="MvcModel.Users" />
+          <AssociationSet Name="userId" Association="MvcModel.userId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="articles" EntitySet="articles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="articles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="titre" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="contenu" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="MvcModel.userId" FromRole="articles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="Nom" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Naissance" Type="DateTime" />
+          <Property Name="Numero" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Departement" Type="Decimal" />
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="articles" Relationship="MvcModel.userId" FromRole="Users" ToRole="articles" />
+        </EntityType>
+        <Association Name="userId">
+          <End Type="MvcModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="MvcModel.articles" Role="articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="articles">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MvcModelStoreContainer" CdmEntityContainer="MvcEntities">
+          <EntitySetMapping Name="articles">
+            <EntityTypeMapping TypeName="MvcModel.articles">
+              <MappingFragment StoreEntitySet="articles">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="contenu" ColumnName="contenu" />
+                <ScalarProperty Name="titre" ColumnName="titre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MvcModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Departement" ColumnName="Departement" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Naissance" ColumnName="Naissance" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

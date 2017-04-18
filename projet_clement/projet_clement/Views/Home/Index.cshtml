@@ -1,0 +1,27 @@
+﻿@model projet_clement.Models.HomeModel
+
+
+
+hello 
+
+@if(@Model.UserList != null)
+{
+    <ul>
+        @foreach (var i in Model.UserList)
+        {
+
+           <li>@i.Nom</li>
+           }
+    </ul>
+  
+}
+
+<ul>
+    @foreach (var i in Model.Naissances)
+    {
+
+        <li>@i</li>
+    }
+</ul>
+
+
