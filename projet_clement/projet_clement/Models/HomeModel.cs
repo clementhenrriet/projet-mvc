@@ -14,7 +14,7 @@ namespace projet_clement.Models
         /* ici on crée quelque chose de vide, c'est juste un plan qu'on doit remplir ou utiliser plus
          * tard
          * */
-        public List<articles> TitreArticle { get; set;}
+        public List<articles> AllArticles { get; set;}
         public List<articles> ArtSsTel { get; set; }
 
 
@@ -22,12 +22,19 @@ namespace projet_clement.Models
        {
             UserList = new List<Users>(allUsers);
             ArtSsTel = new List<articles>(ArtSansTel);
-            TitreArticle = new List<articles>(TitreArt);
        }
 
         public HomeModel(IQueryable<Users> allUsers)
         {
             UserList = new List<Users>(allUsers);
+        }
+
+
+
+        public HomeModel(IQueryable<articles> dbArticles, IQueryable<Users> dbUsers)
+        {
+            AllArticles = new List<articles>(dbArticles);
+            UserList = new List<Users>(dbUsers);
         }
     }
 }

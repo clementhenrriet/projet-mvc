@@ -1,64 +1,7 @@
 ﻿@model projet_clement.Models.HomeModel
 
-
-@*@foreach (var i in Model.UserList)
-{
-    <div style="border: 1px solid black; padding:40px; margin:40px;">
-
-        <form method="post" action="~/Home/Edit/@i.userId">
-            <h3>Formulaire de rentrée d'un auteur </h3>
-
-            <p>Nom</p>
-            <input type="text" name="Nom" value="@i.Nom"/>
-
-
-            <p>Prénom</p>
-            <input type="text" name="Prenom" value="@i.Prenom" />
-
-
-            <p>Date de naissance</p>
-            <input type="datetime" name="Naisance" value="@i.Naissance" />
-
-
-            <p>Numéro de téléphone</p>
-            <input type="text" name="Numero" value="@i.Numero"/>
-
-
-            <p>Département de naissance</p>
-            <input type="text" name="Departement" value="@i.Departement" />
-            <br />
-            <br />
-            <input type="submit" value="Valider" />
-
-        </form>
-    </div>
-}*@
-
-@*<form>
-    <h3>Formulaire de rentrée d'un nouvel article </h3>
-    
-
-    <p>nom de l'auteur</p>
-    <input type="text" name="NomAuteur" />
-   
-
-    <p>titre de l'article</p>
-    <input type="text" name="TitreArticle" />
-   
-
-    <p>Contenu de l'article</p>
-    <input type="text" name="ContenuArticle"/>
-    <br />
-    <br />
-    <input type="submit" value="valider" />
-
-    <br />
-    <br />
-
-</form>*@
-
-<a href="/Home/Edit">Editer les utilisateurs</a><br />
-<a href="/Home/Edit">Editer les articles</a>
+<a href="/Home/EditUser">Editer les utilisateurs</a><br />
+<a href="/Home/EditPosts">Editer les articles</a>
 
 
 @if(@Model.UserList != null)
@@ -73,25 +16,9 @@
   
 }
 
-@*<p>Dates de naissance des rédacteurs</p>
-<ul>
-    @foreach (var i in Model.Naissances)
-    {
-        <li>@i</li>
-    }
-</ul>*@
-
 <p>Titre des articles écrits par les rédacteurs sans numéro de téléphone</p>
 <ul>
     @foreach (var i in Model.ArtSsTel)
-    {
-        <li>@i.titre</li>
-    }
-</ul>
-
-<p>titres de tous les articles terminés</p>
-<ul>
-    @foreach (var i in Model.TitreArticle)
     {
         <li>@i.titre</li>
     }

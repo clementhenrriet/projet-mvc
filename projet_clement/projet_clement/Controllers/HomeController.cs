@@ -11,6 +11,9 @@ namespace projet_clement.Controllers
     {
         private readonly MvcEntities db = new MvcEntities();
         // GET: Home
+
+        public int UserArticleAModifier;
+
         public ActionResult Index()
         {
             var SansTel = db.Users.Where(x => x.Numero == null).FirstOrDefault(); 
@@ -26,11 +29,10 @@ namespace projet_clement.Controllers
             var ArtSanstel = db.articles.Where(x => x.userId == SansTel.userId);
             /* recupere dans la Bd articles tous les articles qui ont le meme UserId 
              * que celui qui n'a pas de telephone dans la base de donnée Users 
-             * et on en fait une liste
              * */
 
             var TitreArt = db.articles.Where(x => x.contenu != null);
-
+            
 
             var model = new HomeModel(allUsers, ArtSanstel, TitreArt);
 
@@ -41,9 +43,10 @@ namespace projet_clement.Controllers
 
 
 
+        //méthodes formulaire modif users
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult EditUser()
         {
           
             var allUsers = db.Users.Where(x => x.Nom != null);
@@ -57,7 +60,7 @@ namespace projet_clement.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Users formUser)
+        public ActionResult EditUser(int id, Users formUser /*nom du formulaire a réutiliser plus bas*/)
         {
             //user dans la bdd
             var dbUser = db.Users.FirstOrDefault(x => x.userId == id);
@@ -77,7 +80,49 @@ namespace projet_clement.Controllers
                 return View(e);
             }
 
-            return RedirectToAction("edit", "Home");
+            return RedirectToAction("EditUser", "Home");
         }
+
+
+        [HttpGet]
+        public ActionResult EditPosts()
+        {
+
+            var allPosts = db.articles.Where(x => x.contenu != null && x.titre != null);
+            /* recupere dans la base de données User les id de toutes les lignes ou la
+             * colonne nom n'est pas nulle (ou elle est remplie)
+             * */
+
+            var allUsers = db.Users.Where(x => x.Nom != null && x.Prenom != null);
+            var model = new HomeModel(allPosts, allUsers);
+
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public ActionResult EditPosts(int id, articles formArticle /*nom du formulaire a réutiliser plus bas*/)
+        {
+            //user dans la bdd
+            var dbUser = db.Users.FirstOrDefault(x => x.userId == id);
+
+            var dbArticle = db.articles.FirstOrDefault(x => x.id == id);
+
+            dbArticle.titre = formArticle.titre;
+            dbArticle.contenu = formArticle.contenu;
+            dbArticle.userId = formArticle.userId;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return View(e);
+            }
+
+            return RedirectToAction("EditPosts", "Home");
+        }
+
     }
 }
