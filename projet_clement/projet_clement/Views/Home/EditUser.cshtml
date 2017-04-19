@@ -1,0 +1,36 @@
+﻿@model projet_clement.Models.HomeModel
+
+
+@foreach (var i in Model.UserList)
+{
+    <div style="border: 1px solid black; padding:40px; margin:40px;">
+
+        <form method="post" action="~/Home/Edit/@i.userId">
+            <h3>Formulaire de rentrée d'un auteur </h3>
+
+            <p>Nom</p>
+            <input type="text" name="Nom" value="@i.Nom" />
+
+
+            <p>Prénom</p>
+            <input type="text" name="Prenom" value="@i.Prenom" />
+
+
+            <p>Date de naissance</p>
+            <input type="text" name="Naissance" value="@i.Naissance" />
+
+
+
+            <p>Numéro de téléphone</p>
+            <input type="text" name="Numero" value="@i.Numero" />
+
+
+            <p>Département de naissance</p>
+            <input type="text" name="Departement" value="@i.Departement" />
+            <br />
+            <br />
+            <input type="submit" value="Valider" />
+
+        </form>
+    </div>
+}

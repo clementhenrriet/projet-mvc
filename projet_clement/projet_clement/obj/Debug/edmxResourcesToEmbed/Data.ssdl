@@ -15,7 +15,7 @@
     </Key>
     <Property Name="Nom" Type="varchar" MaxLength="128" />
     <Property Name="Prenom" Type="varchar" MaxLength="256" />
-    <Property Name="Naissance" Type="datetime" Precision="0" />
+    <Property Name="Naissance" Type="date" />
     <Property Name="Numero" Type="varchar" MaxLength="256" />
     <Property Name="Departement" Type="decimal" Precision="10" Scale="0" />
     <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
