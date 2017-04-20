@@ -1,26 +1,22 @@
 ﻿@model projet_clement.Models.HomeModel
 
-<a href="/Home/EditUser">Editer les utilisateurs</a><br />
-<a href="/Home/EditPosts">Editer les articles</a><br />
-<a href="/Home/CreationAuteur">Créer un nouvel auteur</a>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <a href="/Home/EditUser">Editer les utilisateurs</a><br />
+        </div>
+        <div class="col-md-3">
+            <a href="/Home/EditPosts">Editer les articles</a><br />
+        </div>
+        <div class="col-md-3">
+            <a href="/Home/CreationAuteur">Créer un nouvel auteur</a><br />
+        </div>
+        <div class="col-md-3">
+            <a href="/Home/SupressionAuteur">Supprimer un auteur</a>
+            <br />
+        </div>
+        
+    </div>
+</div>
 
-@if(@Model.UserList != null)
-{
-<p>Nom des rédacteurs</p>    
-    <ul>
-        @foreach (var i in Model.UserList)
-        {
-           <li>@i.Nom @i.Prenom</li>
-           }
-    </ul>
-  
-}
-
-<p>Titre des articles écrits par les rédacteurs sans numéro de téléphone</p>
-<ul>
-    @foreach (var i in Model.ArtSsTel)
-    {
-        <li>@i.titre</li>
-    }
-</ul>

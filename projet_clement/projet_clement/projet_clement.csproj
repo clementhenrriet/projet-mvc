@@ -188,6 +188,8 @@
     <Content Include="Views\Home\EditUser.cshtml" />
     <Content Include="Views\Home\EditPosts.cshtml" />
     <Content Include="Views\Home\CreationAuteur.cshtml" />
+    <Content Include="Views\Home\SupressionAuteur.cshtml" />
+    <Content Include="Views\Home\Essai.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,21 +1,49 @@
 ﻿@model projet_clement.Models.HomeModel
 
+
+
 <form method="post" action="~/Home/creationAuteur">
     <h3>Formulaire de création d'auteur</h3>
 
     <p>Nom de l'auteur</p>
-    <input type="text" name="Nom" value="@Request.Form["Nom"]"/>
+    <input type="text" name="Nom" @*value="@Request.Form["Nom"]"*@/>
     <p>prenom de l'auteur</p>
-    <input type="text" name="Prenom" value="@Request.Form["Prenom"]"/>
+    <input type="text" name="Prenom" @*value="@Request.Form["Prenom"]"*@/>
     <p>Date de naisance</p>
-    <input type="text" name="Naissance" value="@Request.Form["naissance"]"/>
+    <input type="text" name="Naissance" @*value="@Request.Form["naissance"]"*@/>
     <p>N° de téléphone</p>
-    <input type="text" name="Numero" value="@Request.Form["Numero"]"/>
+    <input type="text" name="Numero" @*value="@Request.Form["Numero"]"*@/>
     <p>Département de naissance</p>
-    <input type="text" name="Departement" value="@Request.Form["Departement"]"/>
+    <input type="text" name="Departement" @*value="@Request.Form["Departement"]"*@/>
     <br />
-    <input type="submit" value="valider" />
+    <input type="submit" value="Ajouter" />
+    <a href="/Home/Index">retourner à la page d'accueill</a>
+
     
+    <h3>Pour rappel voila un tableau des auteurs déjà créés</h3>
+
+    <table >
+        <tr>
+            <td>Nom</td>
+            <td>Prenom</td>
+            <td>Date de naissance</td>
+            <td>N° de téléphone</td>
+            <td>Département de naissance</td>
+            <td>UserId</td>
+        </tr>
+        @foreach (var i in Model.UserList)
+        {
+            <tr>
+                <td>@i.Nom</td>
+                <td>@i.Prenom</td>
+                <td>@i.Naissance</td>
+                <td>@i.Numero</td>
+                <td>@i.Departement</td>
+                <td>@i.userId</td>
+            </tr>
+        }
+
+    </table>
 
 
 </form>

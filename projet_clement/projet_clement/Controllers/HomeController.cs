@@ -102,7 +102,7 @@ namespace projet_clement.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditPosts(int id, articles formArticle /*nom du formulaire a réutiliser plus bas*/)
+        public ActionResult EditPosts(int id, articles formArticle /*nom du formulaire renvoyé par la a réutiliser dans la méthode*/)
         {
             //user dans la bdd
             var dbUser = db.Users.FirstOrDefault(x => x.userId == id);
@@ -125,22 +125,32 @@ namespace projet_clement.Controllers
             return RedirectToAction("EditPosts", "Home");//retourne a la vue EditPosts situé dans le répertoire Home
         }
 
+        
 
-        //méthode formulaire modif des articles
+
+
+        //méthode crétion auteur
 
         [HttpGet]
         public ActionResult CreationAuteur()
         {
-            return View();
+            var allUsers = db.Users.Where(x => x.Nom != null);
+            /* recupere dans la base de données User les id de toutes les lignes ou la
+             * colonne "nom" n'est pas nulle (ou elle est remplie)
+             * */
+            var model = new HomeModel(allUsers);
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult CreationAuteur(Users formUser)
+        public ActionResult CreationAuteur(Users formUser) /*au lieu de récupérer tous les paramètres 
+            un par un, on les mets tous dans un formuser. c'est moins contraignant à écrire si on 
+            avait du en récupérer 200*/
         {
-            db.Users.Add(formUser);
+            db.Users.Add(formUser); //Ajoute les nouvelles données à la base de donnée
             try
             {
-                db.SaveChanges();
+                db.SaveChanges(); //IMPORTANT, penser à sauvegarder
             }
             catch (Exception e)
             {
@@ -149,5 +159,33 @@ namespace projet_clement.Controllers
 
             return RedirectToAction("CreationAuteur", "Home");
         }
+
+
+
+        //méthode supression auteur
+
+        [HttpGet]
+        public ActionResult SupressionAuteur()
+        {
+            var allUsers = db.Users.Where(x => x.Nom != null);
+            /* recupere dans la base de données User les id de toutes les lignes ou la
+             * colonne "nom" n'est pas nulle (ou elle est remplie)
+             * */
+            var model = new HomeModel(allUsers);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SupressionAuteur(string Nom, string Prenom)
+        {
+
+            var userId = db.Users.Single(x => x.Nom == Nom && x.Prenom == Prenom);
+            db.Users.Remove(userId);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }
