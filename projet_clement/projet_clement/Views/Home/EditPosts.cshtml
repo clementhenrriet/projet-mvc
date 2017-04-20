@@ -16,17 +16,18 @@
             <input type="text" name="contenu" value="@i.contenu" />
             <br />
             <br />
+
             <select name="userId">
                 <option value="@i.userId">@i.Users.Nom @i.Users.Prenom</option>
                 @foreach (var u in Model.UserList.Where(x=> x.userId != i.userId))
                 {
                     <option value="@u.userId" >@u.Nom @u.Prenom</option>
-                }
-              
+                }              
             </select>
 
             <br />
             <br />
+
             <input type="submit" value="Valider" />
 
         </form>

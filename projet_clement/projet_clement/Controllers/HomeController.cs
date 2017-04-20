@@ -12,7 +12,6 @@ namespace projet_clement.Controllers
         private readonly MvcEntities db = new MvcEntities();
         // GET: Home
 
-        public int UserArticleAModifier;
 
         public ActionResult Index()
         {
@@ -22,7 +21,7 @@ namespace projet_clement.Controllers
              * trouvée sans numero de telephone            
              * */
             var allUsers = db.Users.Where(x => x.Nom != null);
-            /* recupere dans la base de données User les id de toutes les lignes ou la
+            /* recupere dans la base de données User toutes les lignes ou la
              * colonne nom n'est pas nulle (ou elle est remplie)
              * */
 
@@ -31,10 +30,10 @@ namespace projet_clement.Controllers
              * que celui qui n'a pas de telephone dans la base de donnée Users 
              * */
 
-            var TitreArt = db.articles.Where(x => x.contenu != null);
-            
-
-            var model = new HomeModel(allUsers, ArtSanstel, TitreArt);
+            var TitreArt = db.articles.Where(x => x.contenu != null);  
+                
+            var model = new HomeModel(allUsers, ArtSanstel, TitreArt);//on envoie trois paramètres à la 
+            //méthode HomeModel, arguments qu'on a définni au dessus. On envoie pas du vide
 
             return View(model);
 
@@ -45,21 +44,18 @@ namespace projet_clement.Controllers
 
         //méthodes formulaire modif users
 
-        [HttpGet]
+        [HttpGet]//c'est la méthode qui s'executera à l'affichage de la vue Edituser
         public ActionResult EditUser()
-        {
-          
+        {        
             var allUsers = db.Users.Where(x => x.Nom != null);
             /* recupere dans la base de données User les id de toutes les lignes ou la
-             * colonne nom n'est pas nulle (ou elle est remplie)
+             * colonne "nom" n'est pas nulle (ou elle est remplie)
              * */
             var model = new HomeModel(allUsers);
-
             return View(model);
-
         }
 
-        [HttpPost]
+        [HttpPost]//c'est la méthode qui s'executera quand on validera l'envoi de formulaire depuis le navigateur
         public ActionResult EditUser(int id, Users formUser /*nom du formulaire a réutiliser plus bas*/)
         {
             //user dans la bdd
@@ -80,24 +76,29 @@ namespace projet_clement.Controllers
                 return View(e);
             }
 
-            return RedirectToAction("EditUser", "Home");
+            return RedirectToAction("EditUser", "Home");//retourne a la vue EditUser situé dans le répertoire Home
         }
 
 
-        [HttpGet]
+
+        //méthode formulaire modif des articles
+
+        [HttpGet]//c'est la méthode qui s'executera à l'affichage de la vue EditPosts
         public ActionResult EditPosts()
         {
-
             var allPosts = db.articles.Where(x => x.contenu != null && x.titre != null);
-            /* recupere dans la base de données User les id de toutes les lignes ou la
-             * colonne nom n'est pas nulle (ou elle est remplie)
+            /* recupere dans la base de données articles les lignes ou la
+             * colonne "contenu" et "titre" ne sont pas nulle (ou elle sont remplie)
+             * en gros on récupere tous les articles finis
              * */
 
             var allUsers = db.Users.Where(x => x.Nom != null && x.Prenom != null);
+            /*on récupère tous les auteurs qui ont un nom et un prénom de renseigné*/
+
             var model = new HomeModel(allPosts, allUsers);
+            /*on appel la méthode HomeModel en lui donnant deux paramètres, allposts et allusers*/
 
             return View(model);
-
         }
 
         [HttpPost]
@@ -121,8 +122,32 @@ namespace projet_clement.Controllers
                 return View(e);
             }
 
-            return RedirectToAction("EditPosts", "Home");
+            return RedirectToAction("EditPosts", "Home");//retourne a la vue EditPosts situé dans le répertoire Home
         }
 
+
+        //méthode formulaire modif des articles
+
+        [HttpGet]
+        public ActionResult CreationAuteur()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreationAuteur(Users formUser)
+        {
+            db.Users.Add(formUser);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                RedirectToAction("CreationAuteur", "Home");
+            }
+
+            return RedirectToAction("CreationAuteur", "Home");
+        }
     }
 }
