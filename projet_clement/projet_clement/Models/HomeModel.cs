@@ -50,7 +50,8 @@ namespace projet_clement.Models
 
  AllArticles est donc une liste qui contient tous les articles finis
  UserList est une liste qui contient tous les auteurs ayant un nom et prenom renseigné
-
  */
+
+        
     }
 }

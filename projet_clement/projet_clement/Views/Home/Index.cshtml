@@ -3,20 +3,94 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <a href="/Home/EditUser">Editer les utilisateurs</a><br />
+        <div class="col-md-6">
+            <a href="/Home/EditUser" class="btn btn-primary center-block">Editer les utilisateurs</a>
         </div>
-        <div class="col-md-3">
-            <a href="/Home/EditPosts">Editer les articles</a><br />
+        <div class="col-md-6">
+            <a href="/Home/EditPosts" class="btn btn-primary center-block">Editer les articles</a>
         </div>
-        <div class="col-md-3">
-            <a href="/Home/CreationAuteur">Créer un nouvel auteur</a><br />
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/Home/CreationAuteur" class="btn btn-primary center-block">Créer un nouvel auteur</a>
         </div>
-        <div class="col-md-3">
-            <a href="/Home/SupressionAuteur">Supprimer un auteur</a>
+        <div class="col-md-6">
+            <a href="/Home/SupressionAuteur" class="btn btn-primary center-block">Supprimer un auteur</a>
             <br />
         </div>
-        
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/Home/CreationArticle" class="btn btn-primary center-block">Créer un nouvel article</a>
+        </div>
+        <div class="col-md-6">
+            <a href="/Home/SuppressionArticle" class="btn btn-primary center-block">Supprimer un article</a>
+        </div>
+    </div>
+   
+  
 </div>
 
+<div class="container" style="align-content:center">
+        <br />
+        <br />
+        <br />
+        <h3>Rappel des auteurs créés</h3>
+        <br />
+
+
+        <table>
+            <tr>
+                <td>Nom</td>
+                <td>Prenom</td>
+                <td>Date de naissance</td>
+                <td>N° de téléphone</td>
+                <td>Département de naissance</td>
+                <td>UserId</td>
+            </tr>
+            @foreach (var i in Model.UserList)
+            {
+                <tr>
+                    <td>@i.Nom</td>
+                    <td>@i.Prenom</td>
+                    <td>@i.Naissance</td>
+                    <td>@i.Numero</td>
+                    <td>@i.Departement</td>
+                    <td>@i.userId</td>
+                </tr>
+            }
+
+        </table>
+</div>
+
+<div class="container" style="align-content:center">
+
+    <br />
+    <br />
+    <br />
+    <h3>Rappel des articles rédigés et de leurs auteurs</h3>
+    <br />
+    <table>
+        <tr>
+            <td>Titre</td>
+            <td>Contenu de l'article</td>
+            <td>Id de l'auteur</td>
+        </tr>
+
+        @foreach (var i in Model.AllArticles)
+        {
+            <tr>
+                <td>@i.titre</td>
+                <td>@i.contenu</td>
+                <td>@i.userId</td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+<br />
+<br />
+<br />

@@ -25,6 +25,8 @@ namespace projet_clement.Controllers
              * colonne nom n'est pas nulle (ou elle est remplie)
              * */
 
+            var TousLesArticles = db.articles.Where(x => x.titre != null);
+
             var ArtSanstel = db.articles.Where(x => x.userId == SansTel.userId);
             /* recupere dans la Bd articles tous les articles qui ont le meme UserId 
              * que celui qui n'a pas de telephone dans la base de donnée Users 
@@ -32,7 +34,7 @@ namespace projet_clement.Controllers
 
             var TitreArt = db.articles.Where(x => x.contenu != null);  
                 
-            var model = new HomeModel(allUsers, ArtSanstel, TitreArt);//on envoie trois paramètres à la 
+            var model = new HomeModel(TousLesArticles, allUsers);//on envoie trois paramètres à la 
             //méthode HomeModel, arguments qu'on a définni au dessus. On envoie pas du vide
 
             return View(model);
@@ -76,7 +78,7 @@ namespace projet_clement.Controllers
                 return View(e);
             }
 
-            return RedirectToAction("EditUser", "Home");//retourne a la vue EditUser situé dans le répertoire Home
+            return RedirectToAction("Index", "Home");//retourne a la vue EditUser situé dans le répertoire Home
         }
 
 
@@ -122,7 +124,7 @@ namespace projet_clement.Controllers
                 return View(e);
             }
 
-            return RedirectToAction("EditPosts", "Home");//retourne a la vue EditPosts situé dans le répertoire Home
+            return RedirectToAction("Index", "Home");//retourne a la vue EditPosts situé dans le répertoire Home
         }
 
         
@@ -187,5 +189,38 @@ namespace projet_clement.Controllers
         }
 
 
+
+
+        [HttpGet]
+        public ActionResult CreationArticle()
+        {
+            var TousLesArticles = db.articles.Where(x => x.titre != null);
+            var allUsers = db.Users.Where(x => x.Nom != null);
+
+            var model = new HomeModel(TousLesArticles, allUsers);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreationArticle(articles formArticles)
+        {
+            db.articles.Add(formArticles);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+
+        [HttpGet]
+        public ActionResult SuppressionArticle()
+        {
+            var TousLesArticles = db.articles.Where(x => x.titre != null);
+
+            return View();
+        }
     }
 }

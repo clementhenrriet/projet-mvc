@@ -1,0 +1,61 @@
+﻿@model projet_clement.Models.HomeModel
+
+<br />
+<form style="border: 1px solid black; padding:40px; margin:40px; width:300px" method="post" action="~/Home/CreationArticle">
+    <p>Titre du nouvel article</p>
+    <input type="text" name="titre" />
+    <p>Contenu du nouvel article</p>
+    <input type="text" name="contenu" />
+    <p>Id de l'auteur de l'article</p>
+    <input type="text" name="userId" /><br />
+    <br />
+    <input type="submit" class="btn btn-primary" value="Créer l'artcile" /><br />
+    <a href="/Home/index">Retourner à la page d'accueill</a>
+
+</form>
+
+<div class="container" style="align-content:center">
+    <h3>Rappel des auteurs et de leur Id</h3>
+    <table>
+        <tr>
+            <td>Nom</td>
+            <td>Prénom</td>
+            <td>Id de l'auteur</td>
+        </tr>
+        @foreach (var i in Model.UserList)
+        {
+            <tr>
+                <td>@i.Nom</td>
+                <td>@i.Prenom</td>
+                <td>@i.userId</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+<div class="container" style="align-content:center">
+
+    <h3>Rappel des articles déjà créés</h3>
+    <table>
+        <tr>
+            <td>Titre de l'article</td>
+            <td>Contenur de l'article</td>
+            <td>Id de l'auteur</td>
+        </tr>
+        @foreach (var i in Model.AllArticles)
+        {
+            <tr>
+                <td>@i.titre</td>
+                <td>@i.contenu</td>
+                <td>@i.userId</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+
+
