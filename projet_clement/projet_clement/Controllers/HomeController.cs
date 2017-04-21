@@ -44,6 +44,36 @@ namespace projet_clement.Controllers
 
 
 
+
+
+        [HttpGet]
+        public ActionResult SelectionAuteurAModifier()
+        {
+            var allUsers = db.Users.Where(x => x.Nom != null);
+
+            var model = new HomeModel(allUsers);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SelectionAuteurAModifier(int userId)
+        {
+            return RedirectToAction("Edituser", "Home");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         //méthodes formulaire modif users
 
         [HttpGet]//c'est la méthode qui s'executera à l'affichage de la vue Edituser
@@ -124,7 +154,7 @@ namespace projet_clement.Controllers
                 return View(e);
             }
 
-            return RedirectToAction("Index", "Home");//retourne a la vue EditPosts situé dans le répertoire Home
+            return RedirectToAction("EditPosts", "Home");//retourne a la vue EditPosts situé dans le répertoire Home
         }
 
         
@@ -185,7 +215,7 @@ namespace projet_clement.Controllers
             db.Users.Remove(userId);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SuppressionAuteur", "Home");
         }
 
 
@@ -208,19 +238,31 @@ namespace projet_clement.Controllers
             db.articles.Add(formArticles);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CreationArticle", "Home");
         }
 
 
 
-
+        
 
         [HttpGet]
         public ActionResult SuppressionArticle()
         {
             var TousLesArticles = db.articles.Where(x => x.titre != null);
 
-            return View();
+            var model = new HomeModel(TousLesArticles);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SuppressionArticle(string titre)
+        {
+            var id = db.articles.Single(x => x.titre == titre);
+            db.articles.Remove(id);
+            db.SaveChanges();
+
+            return RedirectToAction("SuppressionArticle", "Home");
         }
     }
 }

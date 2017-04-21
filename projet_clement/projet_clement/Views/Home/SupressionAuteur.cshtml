@@ -1,41 +1,43 @@
 ﻿@model projet_clement.Models.HomeModel
+>
+<div class="container" style="align-content:center">
+    <form method="post" action="~/home/SupressionAuteur">
+        <h3>Page de suppression d'un auteur</h3>
+        <p>Nom de l'auteur à supprimer</p>
+        <input type="text" name="Nom" />
+        <p>Prénom de l'auteur à supprimer</p>
+        <input type="text" name="Prenom" /><br />
+        <br />
+        <input type="submit" class="btn btn-primary" value="Supprimer" />
+        <a href="/Home/Index">Retourner à la page d'accueill</a>
+    </form>
 
-<form method="post" action="~/home/SupressionAuteur">
-    <h3>Page de suppression d'un auteur</h3>
-    <p>Nom de l'auteur à supprimer</p>
-    <input type="text" name="Nom" />
-    <p>Prénom de l'auteur à supprimer</p>
-    <input type="text" name="Prenom" /><br />
-    <br />
-    <input type="submit" class="btn btn-primary" value="Supprimer" />
-    <a href="/Home/Index">Retourner à la page d'accueill</a>
-</form>
 
 
 
+    <h3>Pour rappel voila un tableau des auteurs déjà créés</h3>
 
-<h3>Pour rappel voila un tableau des auteurs déjà créés</h3>
-
-<table>
-    <tr>
-        <td>Nom</td>
-        <td>Prenom</td>
-        <td>Date de naissance</td>
-        <td>N° de téléphone</td>
-        <td>Département de naissance</td>
-        <td>UserId</td>
-    </tr>
-    @foreach (var i in Model.UserList)
-    {
+    <table>
         <tr>
-            <td>@i.Nom</td>
-            <td>@i.Prenom</td>
-            <td>@i.Naissance</td>
-            <td>@i.Numero</td>
-            <td>@i.Departement</td>
-            <td>@i.userId</td>
+            <td>Nom</td>
+            <td>Prenom</td>
+            <td>Date de naissance</td>
+            <td>N° de téléphone</td>
+            <td>Département de naissance</td>
+            <td>UserId</td>
         </tr>
-    }
+        @foreach (var i in Model.UserList)
+        {
+            <tr>
+                <td>@i.Nom</td>
+                <td>@i.Prenom</td>
+                <td>@i.Naissance</td>
+                <td>@i.Numero</td>
+                <td>@i.Departement</td>
+                <td>@i.userId</td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
 

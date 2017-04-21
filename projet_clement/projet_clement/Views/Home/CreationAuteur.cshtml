@@ -2,27 +2,28 @@
 
 
 
-<form method="post" action="~/Home/creationAuteur">
-    <h3>Formulaire de création d'auteur</h3>
+<div class="container" style="align-content:center">
+    <form method="post" action="~/Home/creationAuteur">
+        <h3>Formulaire de création d'auteur</h3>
+        <abbr title="ce champ est obligattoire">Nom de l'auteur*:</abbr> <input type="text" name="Nom" required /><br />
+        <br />
+        <abbr title="ce champ est obligattoire">Prénom de l'auteur*:</abbr><input type="text" name="Prenom" required /><br />
+        <br />
+        Date de naisance: <input type="text" name="Naissance" /><br />
+        <br />
+        N° de téléphone: <input type="text" name="Numero" /><br />
+        <br />
+        Département de naissance: <input type="text" name="Departement" /><br />
+        <br />
+        <input type="submit" class="btn btn-primary" value="Ajouter" />
+        <a href="/Home/Index">retourner à la page d'accueill</a>
+    </form>
 
-    <p>Nom de l'auteur</p>
-    <input type="text" name="Nom" @*value="@Request.Form["Nom"]"*@/>
-    <p>prenom de l'auteur</p>
-    <input type="text" name="Prenom" @*value="@Request.Form["Prenom"]"*@/>
-    <p>Date de naisance</p>
-    <input type="text" name="Naissance" @*value="@Request.Form["naissance"]"*@/>
-    <p>N° de téléphone</p>
-    <input type="text" name="Numero" @*value="@Request.Form["Numero"]"*@/>
-    <p>Département de naissance</p>
-    <input type="text" name="Departement" @*value="@Request.Form["Departement"]"*@/>
-    <br />
-    <input type="submit" class="btn btn-primary" value="Ajouter" />
-    <a href="/Home/Index">retourner à la page d'accueill</a>
 
-    
+
     <h3>Pour rappel voila un tableau des auteurs déjà créés</h3>
 
-    <table >
+    <table>
         <tr>
             <td>Nom</td>
             <td>Prenom</td>
@@ -44,6 +45,6 @@
         }
 
     </table>
+</div>
 
 
-</form>

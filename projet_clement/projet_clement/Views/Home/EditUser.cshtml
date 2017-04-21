@@ -1,14 +1,28 @@
 ﻿@model projet_clement.Models.HomeModel
 
+<a href="/Home/Index">retourner à la page d'accueill</a>
 
-@foreach (var i in Model.UserList)
+<div class="container" style="align-content:center">
+    <form method="post" action="~/Home/EditUser">
+        Nom: <input type="text" name="Nom" value="Nom"/><br />
+        Prenom: <input type="text" name="prenom" value="Prénom" />
+       
+    </form>
+</div>
+
+
+
+
+
+
+@*@foreach (var i in Model.UserList)
 {
     <div style="border: 1px solid black; padding:40px; margin:40px;"> @*crée une bordure pour séparer les éléments*@
 
-        <form method="post" action="~/Home/EditUser/@i.userId"> 
+        @*<form method="post" action="~/Home/EditUser/@i.userId">*@ 
             @*crée un formulaire de méthode post, cad qui renvoie des infos , vers la méthode editUser située
             dans le contrôleur, en renvoyant aussi comme paramètre userId;*@
-            <h3>Formulaire de rentrée d'un auteur </h3>
+            @*<h3>Formulaire d'édition d'un auteur </h3>
 
             <p>Nom</p>
             <input type="text" name="Nom" value="@i.Nom" />
@@ -35,4 +49,4 @@
 
         </form>
     </div>
-}
+}*@

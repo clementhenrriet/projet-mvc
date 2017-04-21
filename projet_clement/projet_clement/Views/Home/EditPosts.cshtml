@@ -1,12 +1,13 @@
 ﻿@model projet_clement.Models.HomeModel
 
+<a href="/Home/Index">retourner à la page d'accueill</a>
 
 @foreach (var i in Model.AllArticles)
 {
     <div style="border: 1px solid black; padding:40px; margin:40px;">
 
         <form method="post" action="~/Home/EditPosts/@i.id">
-            <h3>Formulaire de rentrée d'un auteur </h3>
+            <h3>Formulaire d'édition d'article </h3>
 
             <p>Nom</p>
             <input type="text" name="Titre" value="@i.titre" />

@@ -192,6 +192,7 @@
     <Content Include="Views\Home\Essai.cshtml" />
     <Content Include="Views\Home\CreationArticle.cshtml" />
     <Content Include="Views\Home\SuppressionArticle.cshtml" />
+    <Content Include="Views\Home\SelectionAuteurAModifier.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

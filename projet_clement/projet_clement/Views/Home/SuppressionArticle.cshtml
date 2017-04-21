@@ -1,5 +1,39 @@
 ﻿@model projet_clement.Models.HomeModel
 
-Page en cour de création
-<br />
-<a href="/Home/index">Retourner à la page d'accueill</a>
+
+<div class="container" style="align-content:center">
+    <form method="post" action="~/Home/SuppressionArticle/" style="border: 1px solid black; padding:40px; margin-top: 40px; width:300px">
+        <p>Titre de l'article à supprimer</p>
+        <input type="text" name="titre" autocomplete="off"/><br />
+        @*<select>
+            @foreach (var i in Model.AllArticles)
+            {
+                <option value="@i.titre">@i.titre</option>
+            }
+        </select><br />*@
+        <br />
+        <input type="submit" class="btn btn-primary" value="Supprimer l'article" />
+        <br />
+        <br />
+        <a href="/Home/index">Retourner à la page d'accueill</a>
+
+    </form>
+</div>
+
+
+<div class="container" style="align-content:center">
+    <h2>Rappel des articles créés</h2>
+    <table>
+        <tr>
+            <td>Titre de l'article</td>
+            <td>Contenu de l'article</td>
+        </tr>
+        @foreach (var i in Model.AllArticles)
+        {
+            <tr>
+                <td>@i.titre</td>
+                <td>@i.contenu</td>
+            </tr>
+        }
+    </table>
+</div>
