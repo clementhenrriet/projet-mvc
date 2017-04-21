@@ -41,228 +41,52 @@ namespace projet_clement.Controllers
 
         }
 
-
-
-
-
-
-        [HttpGet]
-        public ActionResult SelectionAuteurAModifier()
-        {
-            var allUsers = db.Users.Where(x => x.Nom != null);
-
-            var model = new HomeModel(allUsers);
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult SelectionAuteurAModifier(int userId)
-        {
-            return RedirectToAction("Edituser", "Home");
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
         //méthodes formulaire modif users
 
-        [HttpGet]//c'est la méthode qui s'executera à l'affichage de la vue Edituser
-        public ActionResult EditUser()
-        {        
-            var allUsers = db.Users.Where(x => x.Nom != null);
-            /* recupere dans la base de données User les id de toutes les lignes ou la
-             * colonne "nom" n'est pas nulle (ou elle est remplie)
-             * */
-            var model = new HomeModel(allUsers);
-            return View(model);
-        }
+        //[HttpGet]//c'est la méthode qui s'executera à l'affichage de la vue Edituser
+        //public ActionResult EditUser()
+        //{
+            
+        //    var allUsers = db.Users.Where(x => x.Nom != null);
+        //    /* recupere dans la base de données User les id de toutes les lignes ou la
+        //     * colonne "nom" n'est pas nulle (ou elle est remplie)
+        //     * */
+        //    var model = new HomeModel(allUsers);
+        //    return View(model);
+        //}
 
-        [HttpPost]//c'est la méthode qui s'executera quand on validera l'envoi de formulaire depuis le navigateur
-        public ActionResult EditUser(int id, Users formUser /*nom du formulaire a réutiliser plus bas*/)
+        //[HttpPost]//c'est la méthode qui s'executera quand on validera l'envoi de formulaire depuis le navigateur
+        //public ActionResult EditUser(int id, Users formUser /*nom du formulaire a réutiliser plus bas*/)
+        //{
+        //    //user dans la bdd
+        //    var dbUser = db.Users.FirstOrDefault(x => x.userId == id);
+
+        //    dbUser.Nom = formUser.Nom;
+        //    dbUser.Prenom = formUser.Prenom;
+        //    dbUser.Naissance = formUser.Naissance;
+        //    dbUser.Numero = formUser.Numero;
+        //    dbUser.Departement = formUser.Departement;
+
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        return View(e);
+        //    }
+
+        //    return RedirectToAction("Index", "Home");//retourne a la vue EditUser situé dans le répertoire Home
+        //}
+
+        public ActionResult EditUser (int userId)
         {
-            //user dans la bdd
-            var dbUser = db.Users.FirstOrDefault(x => x.userId == id);
+            var Nom= db.Users.Where(x => x.userId == userId).Select(x => x.Nom);
+            
 
-            dbUser.Nom = formUser.Nom;
-            dbUser.Prenom = formUser.Prenom;
-            dbUser.Naissance = formUser.Naissance;
-            dbUser.Numero = formUser.Numero;
-            dbUser.Departement = formUser.Departement;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch(Exception e)
-            {
-                return View(e);
-            }
-
-            return RedirectToAction("Index", "Home");//retourne a la vue EditUser situé dans le répertoire Home
+            return View();
         }
 
-
-
-        //méthode formulaire modif des articles
-
-        [HttpGet]//c'est la méthode qui s'executera à l'affichage de la vue EditPosts
-        public ActionResult EditPosts()
-        {
-            var allPosts = db.articles.Where(x => x.contenu != null && x.titre != null);
-            /* recupere dans la base de données articles les lignes ou la
-             * colonne "contenu" et "titre" ne sont pas nulle (ou elle sont remplie)
-             * en gros on récupere tous les articles finis
-             * */
-
-            var allUsers = db.Users.Where(x => x.Nom != null && x.Prenom != null);
-            /*on récupère tous les auteurs qui ont un nom et un prénom de renseigné*/
-
-            var model = new HomeModel(allPosts, allUsers);
-            /*on appel la méthode HomeModel en lui donnant deux paramètres, allposts et allusers*/
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult EditPosts(int id, articles formArticle /*nom du formulaire renvoyé par la a réutiliser dans la méthode*/)
-        {
-            //user dans la bdd
-            var dbUser = db.Users.FirstOrDefault(x => x.userId == id);
-
-            var dbArticle = db.articles.FirstOrDefault(x => x.id == id);
-
-            dbArticle.titre = formArticle.titre;
-            dbArticle.contenu = formArticle.contenu;
-            dbArticle.userId = formArticle.userId;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                return View(e);
-            }
-
-            return RedirectToAction("EditPosts", "Home");//retourne a la vue EditPosts situé dans le répertoire Home
-        }
-
-        
-
-
-
-        //méthode crétion auteur
-
-        [HttpGet]
-        public ActionResult CreationAuteur()
-        {
-            var allUsers = db.Users.Where(x => x.Nom != null);
-            /* recupere dans la base de données User les id de toutes les lignes ou la
-             * colonne "nom" n'est pas nulle (ou elle est remplie)
-             * */
-            var model = new HomeModel(allUsers);
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult CreationAuteur(Users formUser) /*au lieu de récupérer tous les paramètres 
-            un par un, on les mets tous dans un formuser. c'est moins contraignant à écrire si on 
-            avait du en récupérer 200*/
-        {
-            db.Users.Add(formUser); //Ajoute les nouvelles données à la base de donnée
-            try
-            {
-                db.SaveChanges(); //IMPORTANT, penser à sauvegarder
-            }
-            catch (Exception e)
-            {
-                RedirectToAction("CreationAuteur", "Home");
-            }
-
-            return RedirectToAction("CreationAuteur", "Home");
-        }
-
-
-
-        //méthode supression auteur
-
-        [HttpGet]
-        public ActionResult SupressionAuteur()
-        {
-            var allUsers = db.Users.Where(x => x.Nom != null);
-            /* recupere dans la base de données User les id de toutes les lignes ou la
-             * colonne "nom" n'est pas nulle (ou elle est remplie)
-             * */
-            var model = new HomeModel(allUsers);
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult SupressionAuteur(string Nom, string Prenom)
-        {
-
-            var userId = db.Users.Single(x => x.Nom == Nom && x.Prenom == Prenom);
-            db.Users.Remove(userId);
-            db.SaveChanges();
-
-            return RedirectToAction("SuppressionAuteur", "Home");
-        }
-
-
-
-
-        [HttpGet]
-        public ActionResult CreationArticle()
-        {
-            var TousLesArticles = db.articles.Where(x => x.titre != null);
-            var allUsers = db.Users.Where(x => x.Nom != null);
-
-            var model = new HomeModel(TousLesArticles, allUsers);
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult CreationArticle(articles formArticles)
-        {
-            db.articles.Add(formArticles);
-            db.SaveChanges();
-
-            return RedirectToAction("CreationArticle", "Home");
-        }
-
-
-
-        
-
-        [HttpGet]
-        public ActionResult SuppressionArticle()
-        {
-            var TousLesArticles = db.articles.Where(x => x.titre != null);
-
-            var model = new HomeModel(TousLesArticles);
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult SuppressionArticle(string titre)
-        {
-            var id = db.articles.Single(x => x.titre == titre);
-            db.articles.Remove(id);
-            db.SaveChanges();
-
-            return RedirectToAction("SuppressionArticle", "Home");
-        }
     }
 }

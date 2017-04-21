@@ -144,7 +144,13 @@
     <Compile Include="articles.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CreationArticleController.cs" />
+    <Compile Include="Controllers\CreationAuteurController.cs" />
+    <Compile Include="Controllers\EditPostsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SelectionAuteurAModifierController.cs" />
+    <Compile Include="Controllers\SuppressionArticleController.cs" />
+    <Compile Include="Controllers\SuppressionAuteurController.cs" />
     <Compile Include="Data.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -186,13 +192,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\shared\Layout.cshtml" />
     <Content Include="Views\Home\EditUser.cshtml" />
-    <Content Include="Views\Home\EditPosts.cshtml" />
-    <Content Include="Views\Home\CreationAuteur.cshtml" />
-    <Content Include="Views\Home\SupressionAuteur.cshtml" />
+    <Content Include="Views\EditPosts\EditPosts.cshtml" />
+    <Content Include="Views\CreationAuteur\CreationAuteur.cshtml" />
+    <Content Include="Views\SuppressionAuteur\SuppressionAuteur.cshtml" />
     <Content Include="Views\Home\Essai.cshtml" />
-    <Content Include="Views\Home\CreationArticle.cshtml" />
-    <Content Include="Views\Home\SuppressionArticle.cshtml" />
-    <Content Include="Views\Home\SelectionAuteurAModifier.cshtml" />
+    <Content Include="Views\CreationArticle\CreationArticle.cshtml" />
+    <Content Include="Views\SuppressionArticle\SuppressionArticle.cshtml" />
+    <Content Include="Views\SelectionAuteurAModifier\SelectionAuteurAModifier.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
